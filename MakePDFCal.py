@@ -66,6 +66,13 @@ def FindMaxFontHeight (Font, FontStyle, BaseHeight, MaxWidth, MaxTestString):
 
 
 
+def mapToSpanishDay(key):
+    days = {'Monday':'Lunes', 'Tuesday':'Martes', 'Wednesday':'Miércoles', 'Thursday':'Jueves', 'Friday':'Viernes', 'Saturday':'Sábado', 'Sunday':'Domingo'}
+    return days[key]
+
+def mapToSpanishMonth(key):
+    months = { 'January': 'Enero', 'February':'Febrero', 'March':'Marzo', 'April':'Abril', 'May':'Mayo', 'June':'Junio', 'July':'Julio', 'August':'Agosto', 'September':'Septiembre', 'October':'Octubre', 'November':'Noviembre', 'December':'Diciembre'}
+    return months[key]
 #
 # MakePDFMonthCal
 # - Quite a big function that does all the calendar making, that is
@@ -116,7 +123,7 @@ def MakePDFMonthCal (year, month, calParams, outputFile):
 		pdfFile.cell (calWidth-calParams['YearGridSpacing'], calParams['YearHeader'], txt=str(year), border=calParams['Debug'], align='C')
 
 		calParams['PageYOrigin'] += (calParams['YearHeader'] + calParams['YearHeaderSpace'])
-
+        #  todo here you can swap from portrait mode I guess
 		if (calParams['PageOrientation'] == PORTRAIT):
 			calHeight = (calParams['PageHeight'] - calParams['YearHeader'] - calParams['YearHeaderSpace']) / YEAR_MONTH_ROWS_PORT
 			calWidth  = calParams['PageWidth']  / YEAR_MONTH_COLS_PORT
@@ -158,7 +165,7 @@ def MakePDFMonthCal (year, month, calParams, outputFile):
 			pdfFile.set_font (calParams['Font'], style=fontStyle, size=INCH_TO_POINT*calParams['BlockMonthTitleHeight']*calHeight) 
 			pdfFile.cell (calWidth, \
 			              calParams['BlockMonthTitleHeight']*calHeight, \
-	        		      txt=calendar.month_name[calMonth], \
+	        		      txt = mapToSpanishMonth(calendar.month_name[calMonth]), \
 		        	      border=calParams['Debug'], align='C')
 
 
@@ -198,10 +205,10 @@ def MakePDFMonthCal (year, month, calParams, outputFile):
 
 			if (calParams['DayTitleStyle'] == 1):
 				pdfFile.cell (calWidth / NUMBER_WEEKDAYS, calParams['BlockDayTitleHeight'] * calHeight, \
-				              txt=calendar.day_name[dayIndices[day]], border=calParams['Debug'], align='C')
+				              txt = mapToSpanishDay(calendar.day_name[dayIndices[day]]), border=calParams['Debug'], align='C')
 			elif (calParams['DayTitleStyle'] == 2):
 				pdfFile.cell (calWidth / NUMBER_WEEKDAYS, calParams['BlockDayTitleHeight'] * calHeight, \
-				              txt=calendar.day_name[dayIndices[day]], border=calParams['Debug'], align='L')
+				              txt = mapToSpanishDay(calendar.day_name[dayIndices[day]]), border=calParams['Debug'], align='L')
 
 
 		# Horizontal Lines
