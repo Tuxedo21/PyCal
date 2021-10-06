@@ -70,8 +70,8 @@ def mapToSpanishDay(key):
     days = {'Monday':'Lunes', 'Tuesday':'Martes', 'Wednesday':'Miércoles', 'Thursday':'Jueves', 'Friday':'Viernes', 'Saturday':'Sábado', 'Sunday':'Domingo'}
     return days[key]
 
-def mapToSpanishMonth(key):
-    months = { 'January': 'Enero', 'February':'Febrero', 'March':'Marzo', 'April':'Abril', 'May':'Mayo', 'June':'Junio', 'July':'Julio', 'August':'Agosto', 'September':'Septiembre', 'October':'Octubre', 'November':'Noviembre', 'December':'Diciembre'}
+def mapToSpanishMonth(key, year):
+    months = { 'January': 'Enero ' + str(year), 'February':'Febrero ' + str(year), 'March':'Marzo ' + str(year), 'April':'Abril ' + str(year), 'May':'Mayo ' + str(year), 'June':'Junio ' + str(year), 'July':'Julio ' + str(year), 'August':'Agosto ' + str(year), 'September':'Septiembre ' + str(year), 'October':'Octubre ' + str(year), 'November':'Noviembre ' + str(year), 'December':'Diciembre ' + str(year)}
     return months[key]
 #
 # MakePDFMonthCal
@@ -165,7 +165,7 @@ def MakePDFMonthCal (year, month, calParams, outputFile):
 			pdfFile.set_font (calParams['Font'], style=fontStyle, size=INCH_TO_POINT*calParams['BlockMonthTitleHeight']*calHeight) 
 			pdfFile.cell (calWidth, \
 			              calParams['BlockMonthTitleHeight']*calHeight, \
-	        		      txt = mapToSpanishMonth(calendar.month_name[calMonth]), \
+	        		      txt = mapToSpanishMonth(calendar.month_name[calMonth], year), \
 		        	      border=calParams['Debug'], align='C')
 
 
